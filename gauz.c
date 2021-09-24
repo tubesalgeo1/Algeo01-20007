@@ -1,6 +1,4 @@
-/* INFO: NANTI DIGANTI KE JAVA
-    SEMENTARA DALAM BENTUK C DULU OKEiii */
-
+/* nanti bakalan di ubah ke java yaaaa, sementara di c dulu */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,9 +15,6 @@ void swap(float m[5][5], int i, int j){
     }
 }
 
-int swapcount(){
-
-}
 
 void check_gauss(float m[5][5]){
     int h, i, j;
@@ -55,7 +50,16 @@ void gauss(float m[5][5]){
 }
 
 void gauss_jordan(float m[5][5]){
-    
+    int i, j, k;
+    float divider;
+    for(i = 0; i < 4; i++){
+        for(j = i+1; j < 5; j++){
+            divider = m[i][j]/ m[j][j];
+            for(k = i+1; k < 5; k++){
+                m[i][k] -= divider*m[j][k];
+            }
+        }
+    }
 }
 
 void elimination_before(float m[5][5]){
@@ -119,6 +123,14 @@ int main(){
     }
     printf("\n");
     gauss(m);
+    for(i = 0; i < 5; i++){
+        for(j = 0; j < 5; j++){
+            printf("%0.2f ", m[i][j]);
+        }
+        printf("\n");
+    }
+    gauss_jordan(m);
+    printf("\n");
     for(i = 0; i < 5; i++){
         for(j = 0; j < 5; j++){
             printf("%0.2f ", m[i][j]);
