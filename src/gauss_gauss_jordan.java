@@ -3,7 +3,7 @@ public class gauss_gauss_jordan{
     /* Note buat kawan2 jadi ini pertama harus lewat 
         1. panggil fungsi elimination_before terlebih dahulu
         (ini untuk menghandle swap baris)
-            NOTE: JANGAN LUPA UNTUK INISIALISASI VARIABEL BUAT SWAP YAK KARENA BAKAL KEPAKE BANGET DI DETERMINAN LAGI 
+        NOTE: JANGAN LUPA UNTUK INISIALISASI VARIABEL BUAT MENAMPUNG NILAI SWAP YAK KARENA BAKAL KEPAKE BANGET DI DETERMINAN LAGI 
         2. panggil fungsi gauss()
         3. panggil fungsi gauss_jordan() apabila berniat untuk mengubah ke bentuk matriks baris tereduksi -> opsional
         4. Selesai */
@@ -52,16 +52,60 @@ public class gauss_gauss_jordan{
     }
 
     public static void gauss_jordan(float m[][], int neffrow, int neffcols){
-        int i, j, k;
-        float divider;
-        for(i = 0; i < neffrow-1; i++){
-            for(j = i+1; j < neffcols; j++){
-                divider = m[i][j]/ m[j][j];
-                for(k = i+1; k < neffcols; k++){
-                    m[i][k] -= divider*m[j][k];
+        int index_row = -999;
+        int arr[] = new int[neffcols];
+        int count = 0;
+        for(int i = 0; i < neffcols; i++){
+            arr[i] = -9999;
+        }
+        float divider ,idx;
+        for(int i = 0; i < neffrow-1; i++){
+            for(int j = 0; j < neffcols; j++){
+                index_row = search_row(m, j, neffrow, i);
+                if(index_row != -999){
+                    if(check_availability(arr, index_row, j)){
+                        arr[j] = index_row;
+                        divider = m[i][j]/ m[index_row][j];
+                        for(int k = 0; k < neffcols; k++){
+                            idx = m[index_row][k];
+                            m[i][k] -= divider*idx;
+                        }
+                    }else{
+                        count = index_row;
+                        while(check_availability(arr, index_row, j) == false && count < neffrow){
+                            index_row = search_row(m, j, neffrow, index_row);
+                            count ++;
+                        }
+                    }
                 }
             }
+            for(int z = 0; z < neffcols; z++){
+                arr[z] = -9999;
+            }
         }
+    }
+
+    public static boolean check_availability(int a[], int val, int j){
+        boolean flag;
+        flag = true;
+        for(int k = 0; k < j; k++){
+            if(a[k] == val){
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static int search_row(float m[][], int j, int neffrow, int i){
+        int index = -999;
+        for(int k = i+1; k < neffrow; k++){
+            if(m[k][j] == 1){
+                index = k;
+                break;
+            }
+        }
+        return index;
     }
 
     public static void elimination_before(float m[][], int neffrow, int neffcols, int swap_counter){
