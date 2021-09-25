@@ -1,15 +1,13 @@
-// import java.io.IOException;
+import java.io.IOException;
 import java.lang.Math;
 
 public class Determinan {
-    // Test
-    /*
+    /* // Test 
     public static void main(String[] args) throws IOException {
         float[][] matriks = ReadDisplayArray.readInput(true);
         ReadDisplayArray.displayOutput(matriks);
-        ReadDisplayArray.displayOutput(Determinan.minor(matriks, 1, 1));
-        float det = Determinan.detKofaktor(matriks);
-        System.out.println(det);
+        System.out.println("Determinan = " + Determinan.detKofaktor(matriks));
+        System.out.println("Determinan = " + Determinan.detReduksiBaris(matriks));
     }*/
 
     public static float[][] minor (float[][] matriks, int i, int j) {
@@ -34,7 +32,7 @@ public class Determinan {
     }
     
     public static float detKofaktor (float[][] matriks) {
-        int size = matriks.length;
+        int size = matriks[0].length;
         float result = 0;
         if (size == 1) {
             return matriks[0][0];
@@ -48,4 +46,20 @@ public class Determinan {
             return result;
         }
     }
+
+    public static float detReduksiBaris (float[][] matriks) {
+        int swap = 0;
+        int size = matriks.length;
+        if (size == 1) {
+            return matriks[0][0];
+        } else {
+            float det = 1;
+            gauss_gauss_jordan.elimination_before(matriks, size, size, swap);
+            for (int i = 0; i < size; i++) {
+                det = det * matriks[i][i];
+            }
+            return det * (float) Math.pow(-1, swap);
+        }
+    }
+
 }
