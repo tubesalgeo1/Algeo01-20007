@@ -26,6 +26,32 @@ public class ReadDisplayArray {
         return matrix;
     }
 
+    public static float[][] readInputPoint() throws IOException {
+        System.out.println("Jenis input apa yang ingin diberikan: ");
+        System.out.print("1. Keyboard\n2. File\n");
+        int chooseInput = Utils.chooseOptionValidation(1, 2);
+        float matrix[][];
+        if (chooseInput == 1) {
+            matrix = readPointMatrix();
+        } else {
+            matrix = readFiletoMatrix();
+        }
+        return matrix;
+    }
+
+    public static float[][] readInputRegressionPoints() throws IOException {
+        System.out.println("Jenis input apa yang ingin diberikan: ");
+        System.out.print("1. Keyboard\n2. File\n");
+        int chooseInput = Utils.chooseOptionValidation(1, 2);
+        float matrix[][];
+        if (chooseInput == 1) {
+            matrix = readRegressionPoints();
+        } else {
+            matrix = readFiletoMatrix();
+        }
+        return matrix;
+    }
+
     // Fungsi untuk menampilkan/menyimpan hasil operasi matriks
     public static void displayOutput(float[][] matrix) throws IOException {
         System.out.println("\nJenis output apa yang ingin diberikan: ");
@@ -120,6 +146,59 @@ public class ReadDisplayArray {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                matrix[i][j] = sc.nextFloat();
+            }
+        }
+
+        return matrix;
+    }
+
+    private static float[][] readPointMatrix() {
+        System.out.println("Masukkan jumlah titik (n)");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("n = ");
+        int n = sc.nextInt();
+
+        float[][] matrix = new float[n][2];
+        float[][] matrix2 = new float[n][n + 1];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 2; j++) {
+                matrix[i][j] = sc.nextFloat();
+            }
+        }
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+            int p = 0;
+            for (int j = 0; j < n + 1; j++) {
+                if (j == n) {
+                    matrix2[i][j] = matrix[k][1];
+                } else {
+                    matrix2[i][j] = Utils.power(matrix[k][0], p);
+                }
+                p++;
+            }
+            k++;
+        }
+
+        return matrix2;
+    }
+
+    private static float[][] readRegressionPoints() {
+        System.out.println("Masukkan jumlah titik x (n)");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("n = ");
+        int n = sc.nextInt();
+
+        System.out.println("Masukkan jumlah data (k)");
+        Scanner sc2 = new Scanner(System.in);
+        System.out.print("k = ");
+        int k = sc2.nextInt();
+
+        float[][] matrix = new float[k][n + 1];
+
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < n + 1; j++) {
                 matrix[i][j] = sc.nextFloat();
             }
         }

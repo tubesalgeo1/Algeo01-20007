@@ -11,8 +11,7 @@ public class Main {
 
             // Sistem Persamaan Linier
             if (choiceMenu == 1) {
-                float[][] matriks = ReadDisplayArray.readInput(true);
-                ReadDisplayArray.displayOutput(matriks);
+
             }
 
             // Determinan
@@ -27,12 +26,12 @@ public class Main {
 
             // Interpolasi Polinom
             else if (choiceMenu == 4) {
-
+                RegresiLinier.interpolasiPolinom();
             }
 
             // Regresi Linier
             else if (choiceMenu == 5) {
-
+                RegresiLinier.regresiLinier();
             }
 
             // Keluar

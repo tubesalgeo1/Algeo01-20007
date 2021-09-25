@@ -38,4 +38,12 @@ public class Utils {
         }
         return string.equals("N");
     }
+
+    public static float power(float x, int p) {
+        float result = 1;
+        for (int i = 0; i < p; i++) {
+            result *= x;
+        }
+        return result;
+    }
 }
