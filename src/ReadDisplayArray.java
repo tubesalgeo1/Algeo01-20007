@@ -160,28 +160,15 @@ public class ReadDisplayArray {
         int n = sc.nextInt();
 
         float[][] matrix = new float[n][2];
-        float[][] matrix2 = new float[n][n + 1];
+        // float[][] matrix2 = new float[n][n + 1];
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < 2; j++) {
                 matrix[i][j] = sc.nextFloat();
             }
         }
-        int k = 0;
-        for (int i = 0; i < n; i++) {
-            int p = 0;
-            for (int j = 0; j < n + 1; j++) {
-                if (j == n) {
-                    matrix2[i][j] = matrix[k][1];
-                } else {
-                    matrix2[i][j] = Utils.power(matrix[k][0], p);
-                }
-                p++;
-            }
-            k++;
-        }
 
-        return matrix2;
+        return matrix;
     }
 
     private static float[][] readRegressionPoints() {

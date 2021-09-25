@@ -6,14 +6,30 @@ public class RegresiLinier {
         float[][] matriks = ReadDisplayArray.readInputPoint();
         ReadDisplayArray.displayOutput(matriks);
         int rows = matriks.length;
-        int cols = matriks[0].length;
+        int cols = rows + 1;
+
+        float[][] matrix_final = new float[rows][cols];
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            int p = 0;
+            for (int j = 0; j < cols; j++) {
+                if (j == rows) {
+                    matrix_final[i][j] = matriks[k][1];
+                } else {
+                    matrix_final[i][j] = Utils.power(matriks[k][0], p);
+                }
+                p++;
+            }
+            k++;
+        }
+
         int swap = 0;
         /*
          * gauss_gauss_jordan.elimination_before(matriks, rows, cols, swap);
          * gauss_gauss_jordan.gauss(matriks, rows, cols);
          * gauss_gauss_jordan.gauss_jordan(matriks, rows, cols);
          */
-        ReadDisplayArray.displayOutput(matriks);
+        ReadDisplayArray.displayOutput(matrix_final);
     }
 
     public static void regresiLinier() throws IOException {
@@ -79,10 +95,7 @@ public class RegresiLinier {
     }
 
     public static void main(String[] args) throws IOException {
-        // interpolasiPolinom();
+        interpolasiPolinom();
         regresiLinier();
-        // int h = 8 % 3;
-        // System.out.println(h);
-        System.out.println("HAHAH");
     }
 }
