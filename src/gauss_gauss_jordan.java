@@ -1,4 +1,12 @@
 public class gauss_gauss_jordan{
+    
+    /* Note buat kawan2 jadi ini pertama harus lewat 
+        1. panggil fungsi elimination_before terlebih dahulu
+        (ini untuk menghandle swap baris)
+        2. panggil fungsi gauss()
+        3. panggil fungsi gauss_jordan() apabila berniat untuk mengubah ke bentuk matriks baris tereduksi -> opsional
+        4. Selesai */
+
 
     static void swap(float m[][], int i, int j, int neffrow, int neffcols){
         float temp;
