@@ -3,6 +3,7 @@ public class gauss_gauss_jordan{
     /* Note buat kawan2 jadi ini pertama harus lewat 
         1. panggil fungsi elimination_before terlebih dahulu
         (ini untuk menghandle swap baris)
+            NOTE: JANGAN LUPA UNTUK INISIALISASI VARIABEL BUAT SWAP YAK KARENA BAKAL KEPAKE BANGET DI DETERMINAN LAGI 
         2. panggil fungsi gauss()
         3. panggil fungsi gauss_jordan() apabila berniat untuk mengubah ke bentuk matriks baris tereduksi -> opsional
         4. Selesai */
