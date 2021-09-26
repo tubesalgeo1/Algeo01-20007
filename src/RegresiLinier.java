@@ -1,10 +1,13 @@
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class RegresiLinier {
     public static void interpolasiPolinom() throws IOException {
         float[][] matriks = ReadDisplayArray.readInputPoint();
-        ReadDisplayArray.displayOutput(matriks);
+        Scanner s = new Scanner(System.in);
+        System.out.print("Nilai x yang akan ditaksir = ");
+        float x = s.nextFloat();
         int rows = matriks.length;
         int cols = rows + 1;
 
@@ -23,21 +26,35 @@ public class RegresiLinier {
             k++;
         }
 
-        int swap = 0;
-        /*
-         * gauss_gauss_jordan.elimination_before(matriks, rows, cols, swap);
-         * gauss_gauss_jordan.gauss(matriks, rows, cols);
-         * gauss_gauss_jordan.gauss_jordan(matriks, rows, cols);
-         */
-        ReadDisplayArray.displayOutput(matrix_final);
+        int swap_counter[] = new int[1];
+        rows = matrix_final.length;
+        cols = matrix_final[0].length;
+
+        gauss_gauss_jordan.elimination_before(matrix_final, rows, cols, swap_counter);
+        gauss_gauss_jordan.gauss(matrix_final, rows, cols);
+        gauss_gauss_jordan.gauss_jordan(matrix_final, rows, cols);
+
+        String SPL = SPLInterpolasiRegresi(matrix_final, true);
+        float result = 0;
+        for (int i = 0; i < rows; i++) {
+            result += (matrix_final[i][cols - 1] * (Utils.power(x, i)));
+        }
+        String resultString = SPL + "\nHasil taksiran nilai untuk x = " + x + " adalah " + result;
+        ReadDisplayArray.displayOutputSPL(resultString);
     }
 
     public static void regresiLinier() throws IOException {
         float[][] main_matrix = ReadDisplayArray.readInputRegressionPoints();
         int n = main_matrix[0].length - 1;
         int k = main_matrix.length;
-        ReadDisplayArray.displayOutput(main_matrix);
-        System.out.println("n : " + n + "  k: " + k);
+        Scanner s = new Scanner(System.in);
+        System.out.print("Nilai x yang akan ditaksir (masukkan x sejumlah n) = ");
+
+        float[] xs = new float[n];
+        for (int i = 0; i < n; i++) {
+            xs[i] = s.nextFloat();
+        }
+
         float[] array_sum_xy = new float[n + 1];
         for (int j = 0; j < n + 1; j++) {
             array_sum_xy[j] = 0;
@@ -45,7 +62,6 @@ public class RegresiLinier {
                 array_sum_xy[j] += main_matrix[i][j];
             }
         }
-        System.out.println(Arrays.toString(array_sum_xy));
 
         int row_matrix2 = k;
         int col_matrix2 = n * (n + 1);
@@ -59,7 +75,6 @@ public class RegresiLinier {
                 }
             }
         }
-        ReadDisplayArray.displayOutput(matrix2);
 
         float[] array_sum = new float[col_matrix2];
         for (int j = 0; j < col_matrix2; j++) {
@@ -86,16 +101,52 @@ public class RegresiLinier {
                 b++;
             }
         }
-        ReadDisplayArray.displayOutput(matrix_final);
-        int swap = 0;
+        int swap[] = new int[1];
         gauss_gauss_jordan.elimination_before(matrix_final, n + 1, n + 2, swap);
         gauss_gauss_jordan.gauss(matrix_final, n + 1, n + 2);
+        gauss_gauss_jordan.gauss_jordan(matrix_final, n + 1, n + 2);
 
-        ReadDisplayArray.displayOutput(matrix_final);
+        String SPL = SPLInterpolasiRegresi(matrix_final, false);
+        float result = matrix_final[0][n + 1];
+        for (int i = 1; i < n + 1; i++) {
+            result += (matrix_final[i][n + 1] * xs[i - 1]);
+        }
+        String resultString = SPL + "\nNilai taksiran untuk x " + Arrays.toString(xs) + " adalah " + result;
+        ReadDisplayArray.displayOutputSPL(resultString);
     }
 
-    public static void main(String[] args) throws IOException {
-        interpolasiPolinom();
-        regresiLinier();
+    private static String SPLInterpolasiRegresi(float[][] matrix_final, boolean isInterpolasi) {
+        String SPL = "";
+        for (int i = 0; i < matrix_final.length; i++) {
+            float CC = matrix_final[i][matrix_final[0].length - 1];
+            if ((i == 0) && CC != 0) {
+                SPL += CC + " ";
+            } else if (CC < 0) {
+                if (isInterpolasi) {
+                    if (i == 1) {
+                        SPL += "- " + (CC * -1) + "x ";
+                    } else {
+                        SPL += "- " + (CC * -1) + "x^" + i + " ";
+                    }
+                } else {
+                    SPL += "- " + (CC * -1) + "x" + i + " ";
+                }
+            } else if (CC > 0) {
+                if (isInterpolasi) {
+                    if (i == 1) {
+                        SPL += "+ " + CC + "x ";
+                    } else {
+                        SPL += "+ " + CC + "x^" + i + " ";
+                    }
+                } else {
+                    SPL += "+ " + CC + "x" + i + " ";
+                }
+            }
+            if (matrix_final[i][i] == 0) {
+                i = matrix_final.length;
+                SPL = "Tidak terdapat solusi persamaan linier yang memenuhi";
+            }
+        }
+        return SPL;
     }
 }

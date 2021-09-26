@@ -11,26 +11,28 @@ public class Main {
 
             // Sistem Persamaan Linier
             if (choiceMenu == 1) {
-
+                System.out.println("******************** SISTEM PERSAMAAN LINIER ********************");
             }
 
             // Determinan
             else if (choiceMenu == 2) {
-
+                System.out.println("******************** DETERMINAN ********************");
             }
 
             // Matriks Balikan
             else if (choiceMenu == 3) {
-
+                System.out.println("******************** MATRIKS BALIKAN ********************");
             }
 
             // Interpolasi Polinom
             else if (choiceMenu == 4) {
+                System.out.println("******************** INTERPOLASI POLINOM ********************");
                 RegresiLinier.interpolasiPolinom();
             }
 
             // Regresi Linier
             else if (choiceMenu == 5) {
+                System.out.println("******************** REGRESI LINIER ********************");
                 RegresiLinier.regresiLinier();
             }
 

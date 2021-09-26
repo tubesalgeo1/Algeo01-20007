@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import javax.print.DocFlavor.STRING;
+
 import java.io.FileWriter;
 import java.util.Random;
 
@@ -160,8 +163,8 @@ public class ReadDisplayArray {
         int n = sc.nextInt();
 
         float[][] matrix = new float[n][2];
-        // float[][] matrix2 = new float[n][n + 1];
 
+        System.out.println("Masukkan input dengan format x y");
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < 2; j++) {
                 matrix[i][j] = sc.nextFloat();
@@ -184,6 +187,7 @@ public class ReadDisplayArray {
 
         float[][] matrix = new float[k][n + 1];
 
+        System.out.println("Masukkan input dengan format x1 x2 .. xn y sebanyak k data");
         for (int i = 0; i < k; i++) {
             for (int j = 0; j < n + 1; j++) {
                 matrix[i][j] = sc.nextFloat();
@@ -209,14 +213,18 @@ public class ReadDisplayArray {
         matrixFile.close();
     }
 
-    // Ini fungsi buat GUI dialog file, tapi error teruss
-    // public static File chooseTextFile() throws IOException {
-    // JFileChooser chooser = new JFileChooser();
-    // // JDialog dialog = new JDialog();
-    // // chooser.showOpenDialog(dialog);
-    // chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    // chooser.showSaveDialog(null);
-    // File file = chooser.getSelectedFile();
-    // return file;
-    // }
+    // Untuk memberikan output berupa string, baik keyboard ataupun ke file dalam
+    public static void displayOutputSPL(String resultString) throws IOException {
+        System.out.println("Jenis output apa yang ingin diberikan: ");
+        System.out.print("1. Keyboard\n2. File\n");
+        int chooseInput = Utils.chooseOptionValidation(1, 2);
+        if (chooseInput == 2) {
+            Random randomNum = new Random();
+            FileWriter SPLFile = new FileWriter("SPL" + randomNum.nextInt(100) + ".txt");
+            SPLFile.write(resultString);
+            SPLFile.close();
+        } else {
+            System.out.println(resultString);
+        }
+    }
 }

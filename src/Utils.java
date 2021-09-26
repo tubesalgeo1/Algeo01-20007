@@ -12,6 +12,7 @@ public class Utils {
             System.out.print("Masukkan nomor opsi yang diinginkan = ");
             choice = sc.nextInt();
         }
+        System.out.println("");
         return choice;
     }
 
