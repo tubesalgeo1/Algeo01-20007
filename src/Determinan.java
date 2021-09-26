@@ -99,7 +99,7 @@ public class Determinan {
                 // Mengalikan semua elemen pada diagonal utama
                 det = det * matriks[i][i];
             }
-            return det * (float) Math.pow(-1, swap[1]);
+            return det * (float) Math.pow(-1, swap[0]);
         }
     }
 
