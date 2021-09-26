@@ -23,6 +23,15 @@ public class Main {
             // Matriks Balikan
             else if (choiceMenu == 3) {
                 System.out.println("******************** MATRIKS BALIKAN ********************");
+                float matrix[][] = ReadDisplayArray.readInputPoint();
+                matrix = invers.invers_mat(matrix);
+                System.out.println();
+                for(int i = 0; i < matrix.length; i++){
+                    for(int j = 0; j < matrix.length; j++){
+                        System.out.print(matrix[i][j] + " ");
+                    }
+                    System.out.println();
+                }
             }
 
             // Interpolasi Polinom
