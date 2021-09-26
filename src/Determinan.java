@@ -40,19 +40,32 @@ public class Determinan {
         return detKofaktor(minor(matriks, i, j)) * (float) Math.pow(-1, i+j);
     }
 
-    public static float[][] matriksKofaktor (float[][] matriks, int i, int j) {
+    public static float[][] matriksKofaktor (float[][] matriks) {
         // Fungsi matriksKofaktor mengembalikan matriks kofaktor yaitu matriks 
         // yang elemennya adalah nilai c11, c12, ... cnn (nilaiKofaktor)
         int size = matriks.length;
         float[][] result = new float[size][size];
         for (int a = 0; a < size; a++) {
             for (int b = 0; b < size; b++) {
-                result[a][b] = nilaiKofaktor(matriks, i, j);
+                result[a][b] = nilaiKofaktor(matriks, a, b);
             }
         }
         return result;
     }
     
+    public static float[][] adjoin (float[][] matriks) {
+        // Fungsi adjoin menghasilkan matriks adjoin (transpose matriks kofaktor)
+        int size = matriks.length;
+        float[][] result = new float[size][size];
+        float[][] kofaktor = matriksKofaktor(matriks);
+        for (int a = 0; a < size; a++) {
+            for (int b = 0; b < size; b++) {
+                result[a][b] = kofaktor[b][a];
+            }
+        }
+        return result;
+    }
+
     public static float detKofaktor (float[][] matriks) {
         // FUngsi detKofaktor menghasilkan determian matriks dengan metode ekspansi kofaktor
         int size = matriks[0].length;
