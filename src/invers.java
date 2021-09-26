@@ -7,7 +7,7 @@ public class invers{
         float adjoint[][] = Determinan.adjoin(a);
         float array[][] = new float[size][size];
         /* isi dulu */
-        determinan = Determinan.detReduksiBaris(a);
+        determinan = Determinan.detKofaktor(a);
         array = multiply_matrix(adjoint, 1/determinan);
         return array;
     }
@@ -24,3 +24,4 @@ public class invers{
         return array;
     }
 }
+
