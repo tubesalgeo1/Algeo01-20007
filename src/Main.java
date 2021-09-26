@@ -17,6 +17,7 @@ public class Main {
             // Determinan
             else if (choiceMenu == 2) {
                 System.out.println("******************** DETERMINAN ********************");
+                Determinan.determinan();
             }
 
             // Matriks Balikan

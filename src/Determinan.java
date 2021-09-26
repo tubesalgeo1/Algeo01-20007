@@ -1,15 +1,22 @@
-
-//import java.io.IOException;
+import java.io.IOException;
 import java.lang.Math;
 
 public class Determinan {
-    /*
-     * // Test public static void main(String[] args) throws IOException { //
-     * Prosedur main untuk mengetes fungsi pada class Determinan float[][] matriks =
-     * ReadDisplayArray.readInput(true); ReadDisplayArray.displayOutput(matriks);
-     * System.out.println("Determinan = " + Determinan.detKofaktor(matriks));
-     * System.out.println("Determinan = " + Determinan.detReduksiBaris(matriks)); }
-     */
+
+    public static void determinan() throws IOException {
+        float[][] matriks = ReadDisplayArray.readInput(true); 
+        System.out.println("\nSUB-MENU DETERMINAN");
+        System.out.println("1. Metode Reduksi Baris\n2. Metode Ekspansi Kofaktor\n");
+        int choiceMenu = Utils.chooseOptionValidation(1, 2);
+        if (choiceMenu == 1) {
+            System.out.println(
+                "Hasil determinan untuk matriks di atas dengan metode reduksi baris adalah " + Determinan.detReduksiBaris(matriks));
+        } else if (choiceMenu == 2) {
+            System.out.println(
+                "Hasil determinan dari matriks di atas dengan metode ekspansi kofaktor adalah " + Determinan.detKofaktor(matriks));
+        }
+        System.out.println("\n");
+    }
 
     public static float[][] minor(float[][] matriks, int i, int j) {
         // Fungsi minor menghasilkan matriks minor (Mij) dari suatu matriks

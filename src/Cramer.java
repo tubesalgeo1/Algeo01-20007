@@ -1,13 +1,5 @@
-// import java.io.IOException;
 
 public class Cramer {
-    /* // TEST 
-    public static void main(String[] args) throws IOException {
-        // Prosedur main untuk mengetes fungsi pada class Cramer
-        float[][] mAugmented = ReadDisplayArray.readInput(false);
-        ReadDisplayArray.displayOutput(mAugmented);
-        Cramer.printSol(cramerSol(mAugmented));
-    } */
 
     public static void printSol(float[] solution) {
         // Prosedur printSol mencetak nilai pada array solution satu per satu
