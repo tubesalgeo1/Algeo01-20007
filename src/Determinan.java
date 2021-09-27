@@ -15,26 +15,31 @@ public class Determinan {
         for (float[] row : matriks) {
             resultString += Arrays.toString(row) + "\n";
         }
-        // Memilih metode yang ingin digunakan
-        System.out.println("\nSUB-MENU DETERMINAN");
-        System.out.println("1. Metode Reduksi Baris\n2. Metode Ekspansi Kofaktor\n");
-        int choiceMenu = Utils.chooseOptionValidation(1, 2);
-        if (choiceMenu == 1) {
-            resultString += "\nHasil determinan untuk matriks di atas dengan metode reduksi baris adalah " + Determinan.detReduksiBaris(matriks);
-        } else if (choiceMenu == 2) {
-            resultString += "\nHasil determinan dari matriks di atas dengan metode ekspansi kofaktor adalah " + Determinan.detKofaktor(matriks);
-        }
-        // Memilih jenis output yang diinginkan (file/keyboard)
-        System.out.println("Jenis output apa yang ingin diberikan: ");
-        System.out.print("1. Keyboard\n2. File\n");
-        int chooseInput = Utils.chooseOptionValidation(1, 2);
-        if (chooseInput == 2) {
-            Random randomNum = new Random();
-            FileWriter DetFile = new FileWriter("../test/Determinan" + randomNum.nextInt(100) + ".txt");
-            DetFile.write(resultString);
-            DetFile.close();
-        } else {
+        if (matriks.length != matriks[0].length) {
+            resultString += "Matriks di atas tidak memiliki determinan karena bukan matriks persegi";
             System.out.println(resultString);
+        } else {
+            // Memilih metode yang ingin digunakan
+            System.out.println("\nSUB-MENU DETERMINAN");
+            System.out.println("1. Metode Reduksi Baris\n2. Metode Ekspansi Kofaktor\n");
+            int choiceMenu = Utils.chooseOptionValidation(1, 2);
+            if (choiceMenu == 1) {
+                resultString += "\nHasil determinan untuk matriks di atas dengan metode reduksi baris adalah " + Determinan.detReduksiBaris(matriks);
+            } else if (choiceMenu == 2) {
+                resultString += "\nHasil determinan dari matriks di atas dengan metode ekspansi kofaktor adalah " + Determinan.detKofaktor(matriks);
+            }
+            // Memilih jenis output yang diinginkan (file/keyboard)
+            System.out.println("Jenis output apa yang ingin diberikan: ");
+            System.out.print("1. Keyboard\n2. File\n");
+            int chooseInput = Utils.chooseOptionValidation(1, 2);
+            if (chooseInput == 2) {
+                Random randomNum = new Random();
+                FileWriter DetFile = new FileWriter("../test/Determinan" + randomNum.nextInt(100) + ".txt");
+                DetFile.write(resultString);
+                DetFile.close();
+            } else {
+                System.out.println(resultString);
+            }
         }
     }
 
