@@ -220,7 +220,7 @@ public class ReadDisplayArray {
         int chooseInput = Utils.chooseOptionValidation(1, 2);
         if (chooseInput == 2) {
             Random randomNum = new Random();
-            FileWriter SPLFile = new FileWriter("SPL" + randomNum.nextInt(100) + ".txt");
+            FileWriter SPLFile = new FileWriter("../test/SPL" + randomNum.nextInt(100) + ".txt");
             SPLFile.write(resultString);
             SPLFile.close();
         } else {

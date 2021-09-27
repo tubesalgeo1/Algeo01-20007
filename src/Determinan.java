@@ -1,21 +1,41 @@
 import java.io.IOException;
+import java.util.Arrays;
+import java.io.FileWriter;
+import java.util.Random;
 import java.lang.Math;
 
 public class Determinan {
 
     public static void determinan() throws IOException {
+        // Prosedur determinan merupakan prosedur utama yang akan dijalankan pada Main.java
+        // Input matriks yang ingin dihitung determinannya
         float[][] matriks = ReadDisplayArray.readInput(true); 
+        // Deklarasi variabel untuk menampung output yang akan ditampilkan ke layar / file
+        String resultString = "";
+        for (float[] row : matriks) {
+            resultString += Arrays.toString(row) + "\n";
+        }
+        // Memilih metode yang ingin digunakan
         System.out.println("\nSUB-MENU DETERMINAN");
         System.out.println("1. Metode Reduksi Baris\n2. Metode Ekspansi Kofaktor\n");
         int choiceMenu = Utils.chooseOptionValidation(1, 2);
         if (choiceMenu == 1) {
-            System.out.println(
-                "Hasil determinan untuk matriks di atas dengan metode reduksi baris adalah " + Determinan.detReduksiBaris(matriks));
+            resultString += "\nHasil determinan untuk matriks di atas dengan metode reduksi baris adalah " + Determinan.detReduksiBaris(matriks);
         } else if (choiceMenu == 2) {
-            System.out.println(
-                "Hasil determinan dari matriks di atas dengan metode ekspansi kofaktor adalah " + Determinan.detKofaktor(matriks));
+            resultString += "\nHasil determinan dari matriks di atas dengan metode ekspansi kofaktor adalah " + Determinan.detKofaktor(matriks);
         }
-        System.out.println("\n");
+        // Memilih jenis output yang diinginkan (file/keyboard)
+        System.out.println("Jenis output apa yang ingin diberikan: ");
+        System.out.print("1. Keyboard\n2. File\n");
+        int chooseInput = Utils.chooseOptionValidation(1, 2);
+        if (chooseInput == 2) {
+            Random randomNum = new Random();
+            FileWriter DetFile = new FileWriter("../test/Determinan" + randomNum.nextInt(100) + ".txt");
+            DetFile.write(resultString);
+            DetFile.close();
+        } else {
+            System.out.println(resultString);
+        }
     }
 
     public static float[][] minor(float[][] matriks, int i, int j) {
