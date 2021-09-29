@@ -1,13 +1,6 @@
 
 public class Cramer {
 
-    public static void printSol(float[] solution) {
-        // Prosedur printSol mencetak nilai pada array solution satu per satu
-        for (int i = 0; i < solution.length; i++) {
-            System.out.println("x" + i + " = " + solution[i]);
-        }
-    }
-
     private static float[][] insertConst(float[][] matriks, int j, float[] constant) {
         // Fungsi insertConst mengganti elemen pada kolom j dengan nilai array constant (ruas kanan SPL)
         // Copy matriks ke matriks result
