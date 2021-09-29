@@ -4,10 +4,34 @@ import java.util.Scanner;
 
 public class RegresiLinier {
     public static void interpolasiPolinom() throws IOException {
-        float[][] matriks = ReadDisplayArray.readInputPoint();
-        Scanner s = new Scanner(System.in);
-        System.out.print("Nilai x yang akan ditaksir = ");
-        float x = s.nextFloat();
+        float x = 0;
+        float[][] matriks;
+
+        // Baca Input
+        System.out.println("Jenis input apa yang ingin diberikan: ");
+        System.out.print("1. Keyboard\n2. File\n");
+        int chooseInput = Utils.chooseOptionValidation(1, 2);
+        if (chooseInput == 1) {
+            matriks = ReadDisplayArray.readPointMatrix();
+            Scanner s = new Scanner(System.in);
+            System.out.print("Nilai x yang akan ditaksir = ");
+            x = s.nextFloat();
+        } else {
+            float[][] tempMatrix = ReadDisplayArray.readFiletoMatrix();
+            matriks = new float[tempMatrix.length - 1][tempMatrix[0].length];
+            int m = 0;
+            int n;
+            for (int i = 0; i < tempMatrix.length - 1; i++) {
+                n = 0;
+                for (int j = 0; j < tempMatrix[0].length; j++) {
+                    matriks[i][j] = tempMatrix[m][n];
+                    n++;
+                }
+                m++;
+            }
+            x = tempMatrix[tempMatrix.length - 1][0];
+        }
+
         int rows = matriks.length;
         int cols = rows + 1;
 
@@ -44,17 +68,41 @@ public class RegresiLinier {
     }
 
     public static void regresiLinier() throws IOException {
-        float[][] main_matrix = ReadDisplayArray.readInputRegressionPoints();
-        int n = main_matrix[0].length - 1;
-        int k = main_matrix.length;
-        Scanner s = new Scanner(System.in);
-        System.out.print("Nilai x yang akan ditaksir (masukkan x sejumlah n) = ");
-
-        float[] xs = new float[n];
-        for (int i = 0; i < n; i++) {
-            xs[i] = s.nextFloat();
+        System.out.println("Jenis input apa yang ingin diberikan: ");
+        System.out.print("1. Keyboard\n2. File\n");
+        int chooseInput = Utils.chooseOptionValidation(1, 2);
+        float main_matriks[][];
+        int n, k;
+        if (chooseInput == 1) {
+            main_matriks = ReadDisplayArray.readRegressionPoints();
+            n = main_matriks[0].length - 1;
+            k = main_matriks.length;
+        } else {
+            main_matriks = ReadDisplayArray.readFiletoMatrix();
+            n = main_matriks[0].length - 1;
+            k = main_matriks.length - 1;
         }
 
+        float main_matrix[][] = new float[k][n + 1];
+        for (int i = 0; i < k; i++) {
+            for (int j = 0; j < n + 1; j++) {
+                main_matrix[i][j] = main_matriks[i][j];
+            }
+        }
+
+        float[] xs = new float[n];
+
+        if (chooseInput == 1) {
+            Scanner s = new Scanner(System.in);
+            System.out.print("Nilai x yang akan ditaksir (masukkan x sejumlah n) = ");
+            for (int i = 0; i < n; i++) {
+                xs[i] = s.nextFloat();
+            }
+        } else {
+            for (int i = 0; i < n; i++) {
+                xs[i] = main_matriks[main_matriks.length - 1][i];
+            }
+        }
         float[] array_sum_xy = new float[n + 1];
         for (int j = 0; j < n + 1; j++) {
             array_sum_xy[j] = 0;
@@ -107,11 +155,16 @@ public class RegresiLinier {
         gauss_gauss_jordan.gauss_jordan(matrix_final, n + 1, n + 2);
 
         String SPL = SPLInterpolasiRegresi(matrix_final, false);
-        float result = matrix_final[0][n + 1];
-        for (int i = 1; i < n + 1; i++) {
-            result += (matrix_final[i][n + 1] * xs[i - 1]);
+        String resultString;
+        if (SPL != "Tidak terdapat solusi persamaan linier yang memenuhi") {
+            float result = matrix_final[0][n + 1];
+            for (int i = 1; i < n + 1; i++) {
+                result += (matrix_final[i][n + 1] * xs[i - 1]);
+            }
+            resultString = SPL + "\nNilai taksiran untuk x " + Arrays.toString(xs) + " adalah " + result;
+        } else {
+            resultString = SPL;
         }
-        String resultString = SPL + "\nNilai taksiran untuk x " + Arrays.toString(xs) + " adalah " + result;
         ReadDisplayArray.displayOutputSPL(resultString);
     }
 
