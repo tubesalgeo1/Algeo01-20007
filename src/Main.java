@@ -20,30 +20,18 @@ public class Main {
                 System.out.println();
                 gauss_gauss_jordan.elimination_before(matrix1, rows, cols, arr);
                 System.out.println("Eliminasi sebelum gauss (matriks segitiga bawah): ");
-                for(int i = 0; i < rows; i++){
-                    for(int j = 0; j < cols; j++){
-                        System.out.print(matrix1[i][j] + " ");
-                    }
-                    System.out.println();
-                }
+                ReadDisplayArray.displayOutput(matrix1);
                 System.out.println();
                 System.out.println("Eliminasi Gauss: ");
                 gauss_gauss_jordan.gauss(matrix1, rows, cols);
-                for(int i = 0; i < rows; i++){
-                    for(int j = 0; j < cols; j++){
-                        System.out.print(matrix1[i][j] + " ");
-                    }
-                    System.out.println();
-                }
+                ReadDisplayArray.displayOutput(matrix1);
                 System.out.println();
                 System.out.println("Eliminasi Gauss Jordan: ");
                 gauss_gauss_jordan.gauss_jordan(matrix1, rows, cols);
-                for(int i = 0; i < rows; i++){
-                    for(int j = 0; j < cols; j++){
-                        System.out.print(matrix1[i][j] + " ");
-                    }
-                    System.out.println();
-                }
+                ReadDisplayArray.displayOutput(matrix1);
+                System.out.println();
+                System.out.println("Jumlah swap yang terjadi: " + arr[0]);
+                System.out.println();
             }
 
             // Determinan
@@ -58,12 +46,7 @@ public class Main {
                 float matrix[][] = ReadDisplayArray.readInput(true);
                 matrix = invers.invers_mat_kofaktor(matrix);
                 System.out.println();
-                for(int i = 0; i < matrix.length; i++){
-                    for(int j = 0; j < matrix.length; j++){
-                        System.out.print(matrix[i][j] + " ");
-                    }
-                    System.out.println();
-                }
+                ReadDisplayArray.displayOutput(matrix);
             }
 
             // Interpolasi Polinom
