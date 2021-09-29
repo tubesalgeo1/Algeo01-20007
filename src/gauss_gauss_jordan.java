@@ -144,4 +144,13 @@ public class gauss_gauss_jordan{
         return flag;
     }
 
+    public static void display_mat(float m[][], int neffrow, int neffcols){
+        for(int i = 0; i < neffrow; i++){
+            for(int j = 0; j < neffcols; j++){
+                System.out.print(m[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 }
