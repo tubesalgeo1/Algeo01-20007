@@ -7,6 +7,32 @@ public class gauss_gauss_jordan{
         3. panggil fungsi gauss_jordan() apabila berniat untuk mengubah ke bentuk matriks baris tereduksi -> opsional
         4. Selesai */
 
+    public static String gauss_jordan_main(float[][] matriks, int rows, int cols, String resultString) {
+        char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
+        if (rows == cols-1) {
+            for (int i = 0; i < cols-1; i++) {
+                resultString += "x" + i + " = " + matriks[i][cols-1] + "\n";
+            }
+        } else {
+            String solution2[] = new String[cols-1];
+            int k = 0;
+            for (int i = rows; i < cols-1; i++) {
+                solution2[i] = alphabet[k] + ""; 
+                k += 1;
+            }
+            for (int i = rows-1; i >= 0; i--) {
+                solution2[i] = matriks[i][cols-1] + ""; 
+                for (int j = cols-2; j > rows-1; j--)
+                    solution2[i] += " + (" + (-matriks[i][j]) + solution2[j] + ")";
+            }
+            for (int i = 0; i < cols-1; i++) {
+                resultString += "x" + i + " = " + solution2[i] + "\n";
+            }
+        }
+        return resultString;
+    }
+    
+
     public static void swap(float m[][], int i, int j, int neffrow, int neffcols){
         float temp;
         int k;
