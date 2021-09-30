@@ -1,2 +1,0 @@
-5.445012 - 1.4607239x1 + 1.9947577x2 
-Nilai taksiran untuk x [5.0, 14.0] adalah 26.068

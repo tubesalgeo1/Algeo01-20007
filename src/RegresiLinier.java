@@ -149,10 +149,11 @@ public class RegresiLinier {
                 b++;
             }
         }
+
         int swap[] = new int[1];
-        gauss_gauss_jordan.elimination_before(matrix_final, n + 1, n + 2, swap);
-        gauss_gauss_jordan.gauss(matrix_final, n + 1, n + 2);
-        gauss_gauss_jordan.gauss_jordan(matrix_final, n + 1, n + 2);
+        gauss_gauss_jordan.elimination_before(matrix_final, matrix_final.length, matrix_final[0].length, swap);
+        gauss_gauss_jordan.gauss(matrix_final, matrix_final.length, matrix_final[0].length);
+        gauss_gauss_jordan.gauss_jordan(matrix_final, matrix_final.length, matrix_final[0].length);
 
         String SPL = SPLInterpolasiRegresi(matrix_final, false);
         String resultString;
