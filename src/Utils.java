@@ -47,4 +47,18 @@ public class Utils {
         }
         return result;
     }
+
+    public static float[][] multiplyMatrix(float[][] matrix1, float[][] matrix2) {
+        float[][] result = new float[matrix1.length][matrix2[0].length];
+        int i, j, k;
+        for (i = 0; i <= matrix1.length; i++) {
+            for (j = 0; j <= matrix1[0].length; j++) {
+               result[i][j] = 0;
+               for (k = 0; k <= matrix1[0].length; k++) {
+                  result[i][j] += matrix1[i][k] * matrix2[k][j];
+               }
+            }
+         }
+        return result;
+    }
 }
