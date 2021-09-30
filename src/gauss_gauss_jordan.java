@@ -112,21 +112,49 @@ public class gauss_gauss_jordan{
         check_gauss(m, neffrow, neffcols, swap_counter);
         float idx1, idx2;
         int i, j, k;
-        for(i = 1; i < neffrow; i++){
-            for(j = 0; j < i; j++){
-                if(m[j][j] == 0){
-                    if(is_singular(m, j, i, neffcols)){
-                        /* do nothing */
-                    }else{
-                        check_gauss(m, neffrow, neffcols, swap_counter);
-                        i = 1;
-                        break;
-                    }
+        if(neffrow > neffcols){
+            int count = 1;
+            for(i = 1; i < neffrow; i++){
+                if(i >= neffcols){
+                    count = neffcols;
                 }else{
-                    idx1 = m[i][j];
-                    idx2 = m[j][j];
-                    for(k = 0; k < neffcols; k++){
-                        m[i][k] -= (idx1*m[j][k])/idx2;
+                    count = i;
+                }
+                for(j = 0; j < count; j++){
+                    if(m[j][j] == 0){
+                        if(is_singular(m, j, i, neffcols)){
+                            /* do nothing */
+                        }else{
+                            check_gauss(m, neffrow, neffcols, swap_counter);
+                            i = 1;
+                            break;
+                        }
+                    }else{
+                        idx1 = m[i][j];
+                        idx2 = m[j][j];
+                        for(k = 0; k < neffcols; k++){
+                            m[i][k] -= (idx1*m[j][k])/idx2;
+                        }
+                    }
+                }
+            }
+        }else{
+            for(i = 1; i < neffrow; i++){
+                for(j = 0; j < i; j++){
+                    if(m[j][j] == 0){
+                        if(is_singular(m, j, i, neffcols)){
+                            /* do nothing */
+                        }else{
+                            check_gauss(m, neffrow, neffcols, swap_counter);
+                            i = 1;
+                            break;
+                        }
+                    }else{
+                        idx1 = m[i][j];
+                        idx2 = m[j][j];
+                        for(k = 0; k < neffcols; k++){
+                            m[i][k] -= (idx1*m[j][k])/idx2;
+                        }
                     }
                 }
             }
@@ -143,4 +171,5 @@ public class gauss_gauss_jordan{
         }
         return flag;
     }
+
 }
