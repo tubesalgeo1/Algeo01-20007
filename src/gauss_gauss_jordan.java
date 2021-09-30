@@ -111,9 +111,9 @@ public class gauss_gauss_jordan{
     public static void elimination_before(float m[][], int neffrow, int neffcols, int swap_counter[]){
         check_gauss(m, neffrow, neffcols, swap_counter);
         float idx1, idx2;
-        int i, j, k;
+        int i = 0, j = 0, k;
+        int count;
         if(neffrow > neffcols){
-            int count = 1;
             for(i = 1; i < neffrow; i++){
                 if(i >= neffcols){
                     count = neffcols;
@@ -132,6 +132,7 @@ public class gauss_gauss_jordan{
                     }else{
                         idx1 = m[i][j];
                         idx2 = m[j][j];
+                        m[i][j] = 0;
                         for(k = 0; k < neffcols; k++){
                             m[i][k] -= (idx1*m[j][k])/idx2;
                         }
@@ -152,6 +153,7 @@ public class gauss_gauss_jordan{
                     }else{
                         idx1 = m[i][j];
                         idx2 = m[j][j];
+                        m[i][j] = 0;
                         for(k = 0; k < neffcols; k++){
                             m[i][k] -= (idx1*m[j][k])/idx2;
                         }
