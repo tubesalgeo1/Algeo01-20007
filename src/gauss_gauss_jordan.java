@@ -91,7 +91,6 @@ public class gauss_gauss_jordan{
         
         return resultString;
     }
-    
 
     public static void swap(float m[][], int i, int j, int neffrow, int neffcols){
         float temp;
@@ -115,6 +114,8 @@ public class gauss_gauss_jordan{
                         swap(m, i, n, neffrow, neffcols);
                         swap_counter[0] += 1;
                         break;
+                    }else if(m[i][j] == 0 && m[i-1][j] != 0){
+                        break;
                     }
                 }
             }
@@ -137,7 +138,7 @@ public class gauss_gauss_jordan{
         }
     }
 
-    public static void gauss_jordan(float m[][], int neffrow, int neffcols){
+    public static void gauss_jordan(float m[][], int neffrow, int neffcols, int swap_counter[]){
         int index_row = -999;
         int arr[] = new int[neffcols];
         int count = 0;
@@ -169,6 +170,7 @@ public class gauss_gauss_jordan{
                 arr[z] = -9999;
             }
         }
+        check_gauss(m, neffrow, neffcols, swap_counter);
     }
 
     public static boolean check_availability(int a[], int val, int j){
@@ -208,7 +210,7 @@ public class gauss_gauss_jordan{
                 }
                 for(j = 0; j < count; j++){
                     if(m[j][j] == 0){
-                        if(!is_singular(m, j, i, neffcols)){
+                        if(is_singular(m, j, i, neffcols)){
                             /* do nothing */
                         }else{
                             check_gauss(m, neffrow, neffcols, swap_counter);
@@ -229,7 +231,7 @@ public class gauss_gauss_jordan{
             for(i = 1; i < neffrow; i++){
                 for(j = 0; j < i; j++){
                     if(m[j][j] == 0){
-                        if(!is_singular(m, j, i, neffcols)){
+                        if(is_singular(m, j, i, neffcols)){
                             /* do nothing */
                         }else{
                             check_gauss(m, neffrow, neffcols, swap_counter);
@@ -251,10 +253,15 @@ public class gauss_gauss_jordan{
 
     public static boolean is_singular(float m[][], int j, int i, int neffcols){
         boolean flag;
-        flag = false;
+        flag = true;
         for(int k = 0; k < neffcols; k++){
-            if(m[i][k] != 0 && m[j][k] == 0){
-                flag = true;
+            if(m[i][k] != m[j][k]){
+                if(m[i][k] == 0 && m[j][k] != 0){
+                    flag = true;
+                    break;
+                }
+            }else if(m[i][k] != 0 && m[j][k] == 0){
+                flag = false;
                 break;
             }
         }
