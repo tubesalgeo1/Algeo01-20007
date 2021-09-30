@@ -1,6 +1,18 @@
 
 public class Cramer {
 
+    public static String CramerMain(float[][] matriks, int rows, int cols, String resultString){
+        if (rows == cols-1) {
+            float[] solution4 = Cramer.cramerSol(matriks);
+            for (int i = 0; i < cols-1; i++) {
+                resultString += "x" + i + "=" + solution4[i] + " ";
+            }
+        } else {
+            resultString += "Solusi tidak dapat dihitung dengan metode ini karena bukan matriks persegi";
+        }
+        return resultString;
+    }
+
     private static float[][] insertConst(float[][] matriks, int j, float[] constant) {
         // Fungsi insertConst mengganti elemen pada kolom j dengan nilai array constant (ruas kanan SPL)
         // Copy matriks ke matriks result
