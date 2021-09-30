@@ -132,10 +132,10 @@ public class gauss_gauss_jordan{
                     }else{
                         idx1 = m[i][j];
                         idx2 = m[j][j];
-                        m[i][j] = 0;
                         for(k = 0; k < neffcols; k++){
                             m[i][k] -= (idx1*m[j][k])/idx2;
                         }
+                        m[i][j] = 0;
                     }
                 }
             }
@@ -153,10 +153,10 @@ public class gauss_gauss_jordan{
                     }else{
                         idx1 = m[i][j];
                         idx2 = m[j][j];
-                        m[i][j] = 0;
                         for(k = 0; k < neffcols; k++){
                             m[i][k] -= (idx1*m[j][k])/idx2;
                         }
+                        m[i][j] = 0;
                     }
                 }
             }
