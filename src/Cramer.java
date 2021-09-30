@@ -2,13 +2,13 @@
 public class Cramer {
 
     public static String CramerMain(float[][] matriks, int rows, int cols, String resultString){
-        if (rows == cols-1) {
+        if (rows == cols-1 && Determinan.detKofaktor(matriks) != 0) {
             float[] solution4 = Cramer.cramerSol(matriks);
             for (int i = 0; i < cols-1; i++) {
                 resultString += "x" + i + "=" + solution4[i] + " ";
             }
         } else {
-            resultString += "Solusi tidak dapat dihitung dengan metode ini karena bukan matriks persegi";
+            resultString += "Solusi tidak dapat dihitung dengan metode ini karena jumlah persamaan != jumlah variabel atau determinannya bernilai 0";
         }
         return resultString;
     }

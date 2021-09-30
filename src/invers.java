@@ -13,18 +13,22 @@ public class invers{
         }
         resultStringInv += "\nMatriks Balikan: \n";
 
-        System.out.println("\nSUB-MENU MATRIKS BALIKAN");
-        System.out.println("1. Metode Kofaktor\n2. Metode Reduksi Baris\n");
-        int choiceSubMenuInv = Utils.chooseOptionValidation(1, 4);
-        if (choiceSubMenuInv == 1) {
-            matrix = invers.invers_mat_kofaktor(matrix);
-            for (float[] row : matrix) {
-                resultStringInv += Arrays.toString(row) + "\n";
-            }
-        } else if (choiceSubMenuInv == 2) {
-            matrix = invers.invers_mat_reduc(matrix);
-            for (float[] row : matrix) {
-                resultStringInv += Arrays.toString(row) + "\n";
+        if (Determinan.detKofaktor(matrix) == 0){
+            resultStringInv += "Matriks tidak memiliki balikan karena determinannya bernilai 0\n";
+        } else {
+            System.out.println("\nSUB-MENU MATRIKS BALIKAN");
+            System.out.println("1. Metode Kofaktor\n2. Metode Reduksi Baris\n");
+            int choiceSubMenuInv = Utils.chooseOptionValidation(1, 4);
+            if (choiceSubMenuInv == 1) {
+                matrix = invers.invers_mat_kofaktor(matrix);
+                for (float[] row : matrix) {
+                    resultStringInv += Arrays.toString(row) + "\n";
+                }
+            } else if (choiceSubMenuInv == 2) {
+                matrix = invers.invers_mat_reduc(matrix);
+                for (float[] row : matrix) {
+                    resultStringInv += Arrays.toString(row) + "\n";
+                }
             }
         }
         
@@ -64,7 +68,7 @@ public class invers{
                 resultString += "x" + i + "=" + solution3[i][0] + " ";
             }
         } else {
-            resultString += "Solusi tidak dapat dihitung dengan metode ini karena bukan matriks persegi atau tidak memiliki invers";
+            resultString += "Solusi tidak dapat dihitung dengan metode ini karena jumlah persamaan != jumlah variabel atau tidak memiliki invers";
         }
         return resultString;
     }

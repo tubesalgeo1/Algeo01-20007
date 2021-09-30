@@ -8,22 +8,44 @@ public class gauss_gauss_jordan{
         4. Selesai */
 
     public static String gauss_jordan_main(float[][] matriks, int rows, int cols, String resultString) {
+        // Daftar huruf untuk variabel parametrik
         char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
-        if (rows == cols-1) {
+        // Mengeliminasi baris dengan elemen 0 semua 
+        int count;
+        int count1 = 0;
+        for (int i = 0; i < rows; i++) {
+            count = 0;
+            for (int j = 0; j < cols; j++) {
+                if (matriks[i][j] != 0) {
+                    count += 1;
+                }
+            }
+            if (count > 0) {
+                count1 += 1;
+            }
+        }
+        // Menghapus baris yang elemennya 0 semua dari matriks
+        int newRows = count1;
+        float [][] newMatriks = new float[newRows][cols];
+        for (int i = 0; i < newRows; i++) {
+            newMatriks[i] = matriks[i];
+        }
+        // Menghitung solusi x0 ... xn
+        if (newRows == cols-1) {
             for (int i = 0; i < cols-1; i++) {
-                resultString += "x" + i + " = " + matriks[i][cols-1] + "\n";
+                resultString += "x" + i + " = " + newMatriks[i][cols-1] + "\n";
             }
         } else {
             String solution2[] = new String[cols-1];
             int k = 0;
-            for (int i = rows; i < cols-1; i++) {
+            for (int i = newRows; i < cols-1; i++) {
                 solution2[i] = alphabet[k] + ""; 
                 k += 1;
             }
-            for (int i = rows-1; i >= 0; i--) {
-                solution2[i] = matriks[i][cols-1] + ""; 
-                for (int j = cols-2; j > rows-1; j--)
-                    solution2[i] += " + (" + (-matriks[i][j]) + solution2[j] + ")";
+            for (int i = newRows-1; i >= 0; i--) {
+                solution2[i] = newMatriks[i][cols-1] + ""; 
+                for (int j = cols-2; j > newRows-1; j--)
+                    solution2[i] += " + (" + (-newMatriks[i][j]) + solution2[j] + ")";
             }
             for (int i = 0; i < cols-1; i++) {
                 resultString += "x" + i + " = " + solution2[i] + "\n";
