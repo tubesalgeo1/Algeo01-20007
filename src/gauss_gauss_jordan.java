@@ -122,7 +122,7 @@ public class gauss_gauss_jordan{
                 }
                 for(j = 0; j < count; j++){
                     if(m[j][j] == 0){
-                        if(is_singular(m, j, i, neffcols)){
+                        if(!is_singular(m, j, i, neffcols)){
                             /* do nothing */
                         }else{
                             check_gauss(m, neffrow, neffcols, swap_counter);
@@ -143,7 +143,7 @@ public class gauss_gauss_jordan{
             for(i = 1; i < neffrow; i++){
                 for(j = 0; j < i; j++){
                     if(m[j][j] == 0){
-                        if(is_singular(m, j, i, neffcols)){
+                        if(!is_singular(m, j, i, neffcols)){
                             /* do nothing */
                         }else{
                             check_gauss(m, neffrow, neffcols, swap_counter);
@@ -165,10 +165,11 @@ public class gauss_gauss_jordan{
 
     public static boolean is_singular(float m[][], int j, int i, int neffcols){
         boolean flag;
-        flag = true;
+        flag = false;
         for(int k = 0; k < neffcols; k++){
-            if(m[i][k] != 0 || m[j][k] != 0){
-                flag = false;
+            if(m[i][k] != 0 && m[j][k] == 0){
+                flag = true;
+                break;
             }
         }
         return flag;
