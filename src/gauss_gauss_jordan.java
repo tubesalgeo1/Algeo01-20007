@@ -47,6 +47,24 @@ public class gauss_gauss_jordan{
             for (int i = 0; i < newRows; i++) {
                 newMatriks[i] = matriks[i];
             }
+
+            /* Mengeliminasi kolom dengan elemen 0 semua 
+            int count2;
+            int col0 = 0;
+            for (int j = 0; j < cols; j++) {
+                count2 = 0;
+                for (int i = 0; i < rows; i++) {
+                    if (matriks[i][j] != 0) {
+                        count2 += 1;
+                    }
+                }
+                if (count2 == 0) {
+                    col0 = j;
+                    break;
+                }
+            }*/
+
+
             // Menghitung solusi x0 ... xn
             if (newRows == cols-1) {
                 for (int i = 0; i < cols-1; i++) {

@@ -2,7 +2,14 @@
 public class Cramer {
 
     public static String CramerMain(float[][] matriks, int rows, int cols, String resultString){
-        if (rows == cols-1 && Determinan.detKofaktor(matriks) != 0) {
+        // Copy koefisien variabel x1, x2, ..., xn (ruas kiri SPL) ke matriks baru (mKoef)
+        float[][] mKoef = new float[rows][cols-1];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols-1; j++) {
+                mKoef[i][j] = matriks[i][j];
+            }
+        } 
+        if (rows == cols-1 && Determinan.detKofaktor(mKoef) != 0) {
             float[] solution4 = Cramer.cramerSol(matriks);
             for (int i = 0; i < cols-1; i++) {
                 resultString += "x" + i + "=" + solution4[i] + " ";
