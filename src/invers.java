@@ -13,8 +13,8 @@ public class invers{
         }
         resultStringInv += "\nMatriks Balikan: \n";
 
-        if (Determinan.detKofaktor(matrix) == 0){
-            resultStringInv += "Matriks tidak memiliki balikan karena determinannya bernilai 0\n";
+        if (Determinan.detKofaktor(matrix) == 0 && (matrix.length != matrix[0].length)){
+            resultStringInv += "Matriks tidak memiliki balikan karena determinannya bernilai 0 atau bukan matriks persegi\n";
         } else {
             System.out.println("\nSUB-MENU MATRIKS BALIKAN");
             System.out.println("1. Metode Kofaktor\n2. Metode Reduksi Baris\n");
