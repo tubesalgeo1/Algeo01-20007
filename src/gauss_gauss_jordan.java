@@ -201,7 +201,7 @@ public class gauss_gauss_jordan{
         }
     }
 
-    public static void gauss_jordan(float m[][], int neffrow, int neffcols, int swap_counter[]){
+    public static void gauss_jordan(float m[][], int neffrow, int neffcols){
         int index_row = -999;
         int arr[] = new int[neffcols];
         int count = 0;
