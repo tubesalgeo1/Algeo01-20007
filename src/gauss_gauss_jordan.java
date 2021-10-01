@@ -89,7 +89,7 @@ public class gauss_gauss_jordan{
             // eliminasi gauss jordan untuk kolom bukan 0
             int swap1[] = new int[1];
                 swap1[0] = 0; 
-            gauss_jordan(newMatriks1, newRows, newCols, swap1);
+            gauss_jordan(newMatriks1, newRows, newCols);
             // Mengisi matriks dengan kolom 0 kembali
             float [][] newMatriks2 = new float[newRows][cols];
             int m = 0;
