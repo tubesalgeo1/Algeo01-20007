@@ -177,7 +177,7 @@ public class gauss_gauss_jordan{
         }
     }
 
-    public static void gauss(float m[][], int neffrow, int neffcols){
+    public static void gauss(float m[][], int neffrow, int neffcols, int swap_counter[]){
         int i, j, k;
         float divider;
         for(i = 0; i < neffrow; i++){
@@ -281,6 +281,7 @@ public class gauss_gauss_jordan{
                         m[i][j] = 0;
                     }
                 }
+                check_gauss(m, neffrow, neffcols, swap_counter);
             }
         }else{
             for(i = 1; i < neffrow; i++){
@@ -302,6 +303,7 @@ public class gauss_gauss_jordan{
                         m[i][j] = 0;
                     }
                 }
+                check_gauss(m, neffrow, neffcols, swap_counter);
             }
         }
     }
@@ -321,6 +323,32 @@ public class gauss_gauss_jordan{
             }
         }
         return flag;
+    }
+
+    public static void swap_confirm(float m[][], int neffrow, int neffcols, int swap_counter[]){
+        int idx = 0, idx2 = 0;
+        float divider = 0;
+        for(int i = 0; i < neffrow - 1; i++){
+            for(int k = 0; k < neffcols; k++){
+                if(m[i][k] != 0){
+                    if(m[i+1][k] != 0){
+                        idx2 = k;
+                        idx = i;
+                        divider = m[idx+1][idx2]/m[idx][idx2];
+                        for(int z = idx2; z < neffcols; z++){
+                            m[idx+1][z] -= m[idx][z]*divider; 
+                        }
+                        m[idx+1][idx2] = 0;
+                        i = 0;
+                        check_gauss(m, neffrow, neffcols, swap_counter);;
+                        break;
+                    }else{
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
 }
