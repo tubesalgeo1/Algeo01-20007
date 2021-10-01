@@ -30,17 +30,17 @@ public class Main {
                 if (choiceSubMenu == 1) {
                     gauss_gauss_jordan.elimination_before(matrix1, rows, cols, arr);
                     gauss_gauss_jordan.swap_confirm(matrix1, rows, cols, arr);
-                    gauss_gauss_jordan.gauss(matrix1, rows, cols, arr);
+                    gauss_gauss_jordan.gauss(matrix1, rows, cols);
                     System.out.println("Matrix setelah Eliminasi Gauss: ");
                     ReadDisplayArray.displayOutput(matrix1);
-                    gauss_gauss_jordan.gauss_jordan(matrix1, rows, cols, arr);
+                    gauss_gauss_jordan.gauss_jordan(matrix1, rows, cols);
                     resultString = gauss_gauss_jordan.gauss_jordan_main(matrix1, rows, cols, resultString);
                     
                 } else if (choiceSubMenu == 2) {
                     gauss_gauss_jordan.elimination_before(matrix1, rows, cols, arr);
                     gauss_gauss_jordan.swap_confirm(matrix1, rows, cols, arr);
-                    gauss_gauss_jordan.gauss(matrix1, rows, cols, arr);
-                    gauss_gauss_jordan.gauss_jordan(matrix1, rows, cols, arr);
+                    gauss_gauss_jordan.gauss(matrix1, rows, cols);
+                    gauss_gauss_jordan.gauss_jordan(matrix1, rows, cols);
                     System.out.println("Matrix setelah Eliminasi Gauss-Jordan: ");
                     ReadDisplayArray.displayOutput(matrix1);
                     resultString = gauss_gauss_jordan.gauss_jordan_main(matrix1, rows, cols, resultString);
