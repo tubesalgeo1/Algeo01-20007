@@ -147,6 +147,14 @@ public class gauss_gauss_jordan{
         return resultString;
     }
 
+   /* Note buat kawan2 jadi ini pertama harus lewat 
+        1. panggil fungsi elimination_before terlebih dahulu
+        (ini untuk menghandle swap baris)
+        NOTE: JANGAN LUPA UNTUK INISIALISASI VARIABEL BUAT SWAP DALAM BENTUK ARRAY PANJANGNYA 1 DIGIT YAK KARENA BAKAL KEPAKE BANGET DI DETERMINAN LAGI 
+        2. panggil fungsi gauss()
+        3. panggil fungsi gauss_jordan() apabila berniat untuk mengubah ke bentuk matriks baris tereduksi -> opsional
+        4. Selesai */
+
     public static void swap(float m[][], int i, int j, int neffrow, int neffcols){
         float temp;
         int k;
@@ -177,7 +185,7 @@ public class gauss_gauss_jordan{
         }
     }
 
-    public static void gauss(float m[][], int neffrow, int neffcols, int swap_counter[]){
+    public static void gauss(float m[][], int neffrow, int neffcols){
         int i, j, k;
         float divider;
         for(i = 0; i < neffrow; i++){
@@ -225,7 +233,6 @@ public class gauss_gauss_jordan{
                 arr[z] = -9999;
             }
         }
-        check_gauss(m, neffrow, neffcols, swap_counter);
     }
 
     public static boolean check_availability(int a[], int val, int j){
@@ -303,7 +310,6 @@ public class gauss_gauss_jordan{
                         m[i][j] = 0;
                     }
                 }
-                check_gauss(m, neffrow, neffcols, swap_counter);
             }
         }
     }
@@ -324,7 +330,6 @@ public class gauss_gauss_jordan{
         }
         return flag;
     }
-
     public static void swap_confirm(float m[][], int neffrow, int neffcols, int swap_counter[]){
         int idx = 0, idx2 = 0;
         float divider = 0;
@@ -350,5 +355,4 @@ public class gauss_gauss_jordan{
         }
 
     }
-
 }
