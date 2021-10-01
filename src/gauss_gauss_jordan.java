@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class gauss_gauss_jordan{
     /* Note buat kawan2 jadi ini pertama harus lewat 
         1. panggil fungsi elimination_before terlebih dahulu
@@ -7,7 +9,7 @@ public class gauss_gauss_jordan{
         3. panggil fungsi gauss_jordan() apabila berniat untuk mengubah ke bentuk matriks baris tereduksi -> opsional
         4. Selesai */
 
-    public static String gauss_jordan_main(float[][] matriks, int rows, int cols, String resultString) {
+    public static String gauss_jordan_main(float[][] matriks, int rows, int cols, String resultString) throws IOException {
         // Daftar huruf untuk variabel parametrik
         char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w'};
         int Count;
@@ -48,10 +50,14 @@ public class gauss_gauss_jordan{
                 newMatriks[i] = matriks[i];
             }
 
-            /* Mengeliminasi kolom dengan elemen 0 semua 
+            String solution2[] = new String[cols-1];    // variabel penampung solusi
+
+            /* Mengeliminasi kolom dengan elemen 0 semua */
             int count2;
-            int col0 = 0;
-            for (int j = 0; j < cols; j++) {
+            int count3 = 0;
+            int l = 0;
+            boolean[] idx0 = new boolean[cols-1];
+            for (int j = 0; j < cols-1; j++) {
                 count2 = 0;
                 for (int i = 0; i < rows; i++) {
                     if (matriks[i][j] != 0) {
@@ -59,29 +65,84 @@ public class gauss_gauss_jordan{
                     }
                 }
                 if (count2 == 0) {
-                    col0 = j;
-                    break;
+                    solution2[j] = alphabet[l] + "";
+                    idx0[j] = true;
+                    count3 += 1;
+                    l += 1;
                 }
-            }*/
+            }
+            // Menghapus kolom yang elemennya 0 semua dari matriks
+            int newCols = cols - count3;
+            float [][] newMatriks1 = new float[newRows][newCols];
+            int a = 0;
+            for (int i = 0; i < newRows; i++) {
+                int b = 0;
+                for (int j = 0; j < newCols; j++) {
+                    if (idx0[j]) {
+                        continue;
+                    }
+                    newMatriks1[a][b] = newMatriks[i][j];
+                    b += 1;
+                }
+                a += 1;
+            }
+            // eliminasi gauss jordan untuk kolom bukan 0
+            int swap1[] = new int[1];
+                swap1[0] = 0; 
+            gauss_jordan(newMatriks1, newRows, newCols, swap1);
+            ReadDisplayArray.displayOutput(newMatriks1);
+            // Mengisi matriks dengan kolom 0 kembali
+            float [][] newMatriks2 = new float[newRows][cols];
+            int m = 0;
+            for (int i = 0; i < newRows; i++) {
+                int n = 0;
+                for (int j = 0; j < cols-1; j++) {
+                    if (idx0[j]) {
+                        newMatriks2[i][j] = 0;
+                        continue;
+                    }
+                    newMatriks2[i][j] = newMatriks1[m][n];
+                    n += 1;
+                }
+                m += 1;
+            }
 
 
             // Menghitung solusi x0 ... xn
-            if (newRows == cols-1) {
+            if (newRows == newCols) {
+                int c = 0;
                 for (int i = 0; i < cols-1; i++) {
-                    resultString += "x" + i + " = " + newMatriks[i][cols-1] + "\n";
+                    if (idx0[i]) {
+                        continue;
+                    }
+                    solution2[i] += newMatriks2[c][cols-1] + "";
+                    c += 1;
+                }
+                for (int i = 0; i < cols-1; i++) {
+                    resultString += "x" + i + " = " + solution2[i] + "\n";
                 }
             } else {
-                String solution2[] = new String[cols-1];
-                int k = 0;
-                for (int i = newRows; i < cols-1; i++) {
+                int k = count3;
+                for (int i = newRows + count3; i < cols-1; i++) {
                     solution2[i] = alphabet[k] + ""; 
                     k += 1;
                 }
-                for (int i = newRows-1; i >= 0; i--) {
+                int h = 0;
+                for (int i = 0; i < newRows + count3; i++) {
+                    if (idx0[i]) {
+                        continue;
+                    }
+                    solution2[i] = newMatriks2[h][cols-1] + ""; 
+                    for (int j = cols-2; j >= newRows + count3; j--) {
+                        solution2[i] += " + (" + (-newMatriks[h][j]) + solution2[j] + ")";
+                    }
+                    h += 1;
+                }
+                /*for (int i = newRows-1; i >= 0; i--) {
                     solution2[i] = newMatriks[i][cols-1] + ""; 
                     for (int j = cols-2; j > newRows-1; j--)
                         solution2[i] += " + (" + (-newMatriks[i][j]) + solution2[j] + ")";
-                }
+                }*/
                 for (int i = 0; i < cols-1; i++) {
                     resultString += "x" + i + " = " + solution2[i] + "\n";
                 }
