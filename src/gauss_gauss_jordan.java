@@ -56,7 +56,7 @@ public class gauss_gauss_jordan{
             int count2;
             int count3 = 0;
             int l = 0;
-            boolean[] idx0 = new boolean[cols-1];
+            boolean[] idx0 = new boolean[cols];
             for (int j = 0; j < cols-1; j++) {
                 count2 = 0;
                 for (int i = 0; i < rows; i++) {
@@ -77,7 +77,7 @@ public class gauss_gauss_jordan{
             int a = 0;
             for (int i = 0; i < newRows; i++) {
                 int b = 0;
-                for (int j = 0; j < newCols; j++) {
+                for (int j = 0; j < cols; j++) {
                     if (idx0[j]) {
                         continue;
                     }
@@ -90,13 +90,12 @@ public class gauss_gauss_jordan{
             int swap1[] = new int[1];
                 swap1[0] = 0; 
             gauss_jordan(newMatriks1, newRows, newCols, swap1);
-            ReadDisplayArray.displayOutput(newMatriks1);
             // Mengisi matriks dengan kolom 0 kembali
             float [][] newMatriks2 = new float[newRows][cols];
             int m = 0;
             for (int i = 0; i < newRows; i++) {
                 int n = 0;
-                for (int j = 0; j < cols-1; j++) {
+                for (int j = 0; j < cols; j++) {
                     if (idx0[j]) {
                         newMatriks2[i][j] = 0;
                         continue;
@@ -106,7 +105,6 @@ public class gauss_gauss_jordan{
                 }
                 m += 1;
             }
-
 
             // Menghitung solusi x0 ... xn
             if (newRows == newCols) {
@@ -134,15 +132,11 @@ public class gauss_gauss_jordan{
                     }
                     solution2[i] = newMatriks2[h][cols-1] + ""; 
                     for (int j = cols-2; j >= newRows + count3; j--) {
-                        solution2[i] += " + (" + (-newMatriks[h][j]) + solution2[j] + ")";
+                        solution2[i] += " + (" + (-newMatriks2[h][j]) + solution2[j] + ")";
                     }
                     h += 1;
                 }
-                /*for (int i = newRows-1; i >= 0; i--) {
-                    solution2[i] = newMatriks[i][cols-1] + ""; 
-                    for (int j = cols-2; j > newRows-1; j--)
-                        solution2[i] += " + (" + (-newMatriks[i][j]) + solution2[j] + ")";
-                }*/
+                
                 for (int i = 0; i < cols-1; i++) {
                     resultString += "x" + i + " = " + solution2[i] + "\n";
                 }
