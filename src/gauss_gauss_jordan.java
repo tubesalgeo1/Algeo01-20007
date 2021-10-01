@@ -340,7 +340,7 @@ public class gauss_gauss_jordan{
                         }
                         m[idx+1][idx2] = 0;
                         i = 0;
-                        check_gauss(m, neffrow, neffcols, swap_counter);;
+                        elimination_before(m, neffrow, neffcols, swap_counter);
                         break;
                     }else{
                         break;
